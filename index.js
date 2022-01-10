@@ -35,6 +35,6 @@ app.put('/orang/:id', (req, res) => {
     res.end('Seseorang dengan ID '+id+', telah terupdate')
 });
  
-express().listen(port, () => {            
+app.listen(port, () => {            
     console.log(`Server di port ${port}`)
 })

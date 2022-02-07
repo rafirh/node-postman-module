@@ -45,5 +45,23 @@ app.post("/books", (req,res) => {
     })
 })
 
+app.get("/book/:id", (req,res) => {
+    res.send({
+        massage: "Berhasil menampilkan perubahan buku.",
+        data: { book }
+    })
+})
+
+app.put("books/:id", (req,res) => {
+    const index = books.findIndex((item) => item.id == req.params.id);
+    books[index].title = req.body.title;
+    books[index].year = req.body.year;
+
+    res.send({
+        message: "Berhasil mengubah buku.",
+        data: {book: books[index]}
+    })
+})
+
 const port = 8080;
 app.listen(port, () => console.log (`App running ${port}`))

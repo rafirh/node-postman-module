@@ -59,7 +59,7 @@ app.put("/books/ubah/:id", (req,res) => {
     books[index].title = req.body.title;
     books[index].year = req.body.year;
     res.send({
-        message: "Berhasil mengubah buku.",
+        message: "Berhasil menguba buku.",
         data: {book: books[index]}
     })
 })

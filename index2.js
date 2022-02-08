@@ -13,7 +13,7 @@ const books =[
 ]
 let nextId = books.length + 1;
 
-app.get("/", (res,req) => {
+app.get("/", (req,res) => {
     res.send({
         message: "Berhasil melakukan pemanggilan get",
         data : {
@@ -29,9 +29,9 @@ app.get("/books", (req,res) => {
     })
 })
 
-app.post("/books", (req,res) => {
+app.post("/books/tambah", (req,res) => {
     const book = {
-        id: nextId++,
+        id: nextId,
         title: req.body.title,
         year: req.body.year
     }
@@ -43,23 +43,32 @@ app.post("/books", (req,res) => {
             totalBooks: books.length
         }
     })
+    nextId = books.length + 1;
 })
 
-app.get("/book/:id", (req,res) => {
+app.get("/book/tampil/:id", (req,res) => {
+    const index = books.findIndex((item) => item.id == req.params.id);
     res.send({
         massage: "Berhasil menampilkan perubahan buku.",
-        data: { book }
+        data: { book: books[index] }
     })
 })
 
-app.put("books/:id", (req,res) => {
+app.put("/books/ubah/:id", (req,res) => {
     const index = books.findIndex((item) => item.id == req.params.id);
     books[index].title = req.body.title;
     books[index].year = req.body.year;
-
     res.send({
         message: "Berhasil mengubah buku.",
         data: {book: books[index]}
+    })
+})
+
+app.delete("/books/hapus/:id", (req,res) => {
+    const index = books.findIndex((item) => item.id == req.params.id);
+    books.splice(index,1);
+    res.send({
+        message: "Berhasil menghapus buku.",
     })
 })
 
